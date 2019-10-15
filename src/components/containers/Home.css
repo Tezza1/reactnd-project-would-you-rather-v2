@@ -1,0 +1,7 @@
+.card-container {
+  margin-top: 5rem;
+}
+
+.no-button {
+  cursor: not-allowed !important;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import './Menu.css'
 
 class Menu extends Component {
@@ -6,20 +7,23 @@ class Menu extends Component {
   render() {
     return(
       <div className='ui secondary pointing menu'>
-        <a className='active item' href='#!'>
+        <Link className='active item' to='/'>
           Home
-        </a>
-        <a className='item' href='#!'>
+        </Link>
+        <Link className='item' to='/leaderboard'>
           Leader Board
-        </a>
-        <a className='item' href='#!'>
+        </Link>
+        <Link className='item' to='/add-question'>
           Add question
-        </a>
+        </Link>
+        <Link className='item' to='/login'>
+          Login
+        </Link>
         <div className='right menu'>
-          <a className='ui item' href='#!'>
+          <button className='ui item' href='#!'>
             <i className='user circle icon'></i>
             Logout
-          </a>
+          </button>
         </div>
       </div>
     )

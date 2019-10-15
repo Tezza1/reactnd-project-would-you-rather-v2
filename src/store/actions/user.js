@@ -1,7 +1,28 @@
-import { LOG_IN_USER, LOGGED_IN_USER, LOG_OUT_USER } from './actionsTypes'
+import * as API from '../../utils/_DATA.js'
+import { GET_ALL_USERS, LOG_IN_USER, LOGGED_IN_USER, LOG_OUT_USER } from './actionTypes'
 
-// get all the users and then slect the user to login
-// set them to the user
+// get all the users
+export const getUsers = users => {
+  return {
+    type: GET_ALL_USERS,
+    users
+  }
+}
+
+export function handleGetUsers (users, cb) {
+return (dispatch) => {
+    return API._getUsers()
+      .then( users => {
+        dispatch(getUsers(users))
+        cb()
+      })
+      .catch(() => {
+        console.log('There was an error. Try again.')
+      })
+  }
+}
+
+// then slect the user to login and set them to the user
 export const logInUser = () => {
   return {
     type: LOG_IN_USER
