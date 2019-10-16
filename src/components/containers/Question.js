@@ -6,7 +6,7 @@ const Question = (props) =>{
   return (
     <div className="card" key={item.id}>
       <div className="content">
-        {/*<img className="right floated mini ui image" src="/images/avatar/large/elliot.jpg" />*/}
+        {/* <img className="right floated mini ui image" src={item.avatarURL}  alt="Avatar"/> */}
         <div className="header">
           {item.author}
         </div>

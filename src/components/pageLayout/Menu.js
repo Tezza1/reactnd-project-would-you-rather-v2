@@ -17,9 +17,6 @@ class Menu extends Component {
         <Link className='item' to='/add-question'>
           Add question
         </Link>
-        <Link className='item' to='/login'>
-          Login
-        </Link>
         <div className='right menu'>
           <div className='user'>{this.props.usr}</div>
           <button className='ui item button' onClick={this.props.logout}>

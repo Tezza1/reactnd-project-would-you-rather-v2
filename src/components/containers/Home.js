@@ -35,7 +35,7 @@ class Home extends Component {
           Unanswered questions
         </h2>
         <div className="ui cards">
-        {questions.map(item => (
+          {questions.map(item => (
            <Question item={item} />
          ))}
          </div>
@@ -58,6 +58,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
+    users: state.user.users,
     questions: state.questions.questions,
     status: state.user.loggedInState
   }
