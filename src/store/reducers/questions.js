@@ -1,13 +1,17 @@
 import { GET_QUESTIONS } from '../actions/actionTypes'
+import _ from 'lodash'
 
-const initialState = {}
+const initialState = {
+  questions: []
+}
 
 const questions = (state = initialState, action) => {
   switch(action.type){
     case GET_QUESTIONS:
+      let qs = _.values(action.questions)
       return {
         ...state,
-        questions: action.questions
+        questions: state.questions.concat(qs)
       }
     default:
       return state

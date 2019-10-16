@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleGetQuestions } from '../store/actions/questions'
+import { handleGetUsers } from '../store/actions/user'
 // components ----------------------
 import Menu from './pageLayout/Menu'
 import MainTitle from './pageLayout/MainTitle'
@@ -12,9 +13,8 @@ import LeaderBoard from './containers/LeaderBoard'
 import AddQuestion from './containers/AddQuestion'
 
 class App extends Component {
-
-
   componentDidMount() {
+    this.props.getUsers()
     this.props.getQuestions()
   }
 
@@ -39,12 +39,13 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    questions: state.questions
+
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    getUsers: () => dispatch(handleGetUsers()),
     getQuestions: () => dispatch(handleGetQuestions())
   }
 }

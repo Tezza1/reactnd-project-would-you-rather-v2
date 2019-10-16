@@ -1,8 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { logInUser } from '../../store/actions/user'
 import './Login.css'
 
 class Login extends Component {
+  state={
+    checkedUser: '',
+  }
+
+  radioChangeHandler = e => {
+    this.setState({
+      checkedUser: e.target.value
+    })
+  }
+
+  buttonClickHandler = e => {
+    e.preventDefault()
+    let usr = this.state.checkedUser
+    if (usr === ''){
+      alert('Select a user')
+    } else {
+      this.props.login(usr)
+    }
+  }
+
   render () {
     return (
       <div className="form-container container">
@@ -13,21 +34,30 @@ class Login extends Component {
                 Log-in to your account
               </div>
             </h2>
-            <form className="ui large form">
-              <div className="ui stacked segment">
-                <div className="field">
-                  <div className="ui left icon input">
-                    <i className="user icon"></i>
-                    <input type="text" name="name" placeholder="Name"/>
-                  </div>
+            <form className="ui form">
+              <div className="ui stacked segment left aligned">
+                <div className="grouped fields">
+                  <label>Select user:</label>
+                    {this.props.usrNames.map(usr =>{
+                      return (
+                        <div className="field" key={usr}>
+                          <div className="ui radio checkbox">
+                            <input
+                              type="radio"
+                              name={usr}
+                              value={usr}
+                              onChange={this.radioChangeHandler}
+                            />
+                            <label>{usr}</label>
+                          </div>
+                        </div>
+                      )
+                    })}
                 </div>
-                <div className="field">
-                  <div className="ui left icon input">
-                    <i className="lock icon"></i>
-                    <input type="password" name="password" placeholder="Password" />
-                  </div>
-                </div>
-                <div className="ui fluid large black submit button">Login</div>
+                <button
+                  className="ui fluid large black button"
+                  onClick={this.buttonClickHandler}
+                >Login</button>
               </div>
             </form>
           </div>
@@ -39,19 +69,14 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-      // ctr: state.ctr.counter,
-      // storedResults: state.res.results
+      usrs: state.user.users,
+      usrNames: state.user.userNames
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        // onIncrementCounter: () => dispatch(actionCreators.increment()),
-        // onDecrementCounter: () => dispatch(actionCreators.decrement()),
-        // onAddCounter: () => dispatch(actionCreators.add(10)),
-        // onSubtractCounter: () => dispatch(actionCreators.subtract(15)),
-        // onStoreResult: (result) => dispatch(actionCreators.storeResult(result)),
-        // onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id))
+      login: (usr) => dispatch(logInUser(usr))
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

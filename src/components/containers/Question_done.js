@@ -1,5 +1,5 @@
 import React from 'react'
-// import Moment from 'react-moment'
+import Moment from 'react-moment'
 
 const QuestionDone = (props) => {
   const { item } = props
@@ -11,9 +11,9 @@ const QuestionDone = (props) => {
           {item.author}
         </div>
         <div className="meta">
-          {/* <Moment format="DD MMMM YYYY"> */}
-          {/*   {item.timestamp} */}
-          {/* </Moment> */}
+          <Moment format="DD MMMM YYYY">
+            {item.timestamp}
+          </Moment>
         </div>
         <div className="description">
           Choose one of the following options

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import _ from 'lodash'
 import './Home.css'
 import Question from './Question'
 import QuestionDone from './Question_done'
@@ -9,11 +8,8 @@ class Home extends Component {
 
   render() {
   const { questions } = this.props
-  let arr = _.values(questions)
-  console.log(questions)
-  console.log(arr)
 
-    if(arr.length < 2) {
+    if(!questions.length) {
     return(
       <div className="ui container center aligned card-container">
         <div className="ui active inverted dimmer">
@@ -30,7 +26,7 @@ class Home extends Component {
           Unanswered questions
         </h2>
         <div className="ui cards">
-        {arr.map(item => (
+        {questions.map(item => (
            <Question item={item} />
          ))}
          </div>
@@ -41,7 +37,7 @@ class Home extends Component {
            Answered questions
          </h2>
          <div className="ui cards">
-         {arr.map(item => (
+         {questions.map(item => (
            <QuestionDone item ={item} />
          ))}
          </div>
