@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom';
 import './Home.css'
 import Question from './Question'
 import QuestionDone from './Question_done'
@@ -7,7 +8,15 @@ import QuestionDone from './Question_done'
 class Home extends Component {
 
   render() {
-  const { questions } = this.props
+    if(!this.props.status) {
+      return (
+        <div>
+          <Redirect to='/login' />
+        </div>
+      )
+    }
+
+    const { questions } = this.props
 
     if(!questions.length) {
     return(
@@ -49,7 +58,8 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    questions: state.questions.questions
+    questions: state.questions.questions,
+    status: state.user.loggedInState
   }
 }
 

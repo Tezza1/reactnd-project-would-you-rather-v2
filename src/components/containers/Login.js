@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logInUser } from '../../store/actions/user'
 import './Login.css'
@@ -25,6 +26,14 @@ class Login extends Component {
   }
 
   render () {
+    if(this.props.status) {
+      return (
+        <div>
+          <Redirect to='/' />
+        </div>
+      )
+    }
+
     return (
       <div className="form-container container">
         <div className="ui middle aligned center aligned grid">
@@ -44,7 +53,7 @@ class Login extends Component {
                           <div className="ui radio checkbox">
                             <input
                               type="radio"
-                              name={usr}
+                              name="loginUser"
                               value={usr}
                               onChange={this.radioChangeHandler}
                             />
@@ -70,7 +79,8 @@ class Login extends Component {
 const mapStateToProps = state => {
     return {
       usrs: state.user.users,
-      usrNames: state.user.userNames
+      usrNames: state.user.userNames,
+      status: state.user.loggedInState
     }
 };
 

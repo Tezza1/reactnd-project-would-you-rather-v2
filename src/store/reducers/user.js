@@ -27,7 +27,9 @@ const user = (state = initialState, action) => {
       }
     case LOG_OUT_USER:
       return {
-        ...state
+        ...state,
+        loggedInUser: '',
+        loggedInState: false
       }
     default:
       return state
