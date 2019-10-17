@@ -14,7 +14,7 @@ class Menu extends Component {
         <Link className='item' to='/leaderboard'>
           Leader Board
         </Link>
-        <Link className='item' to='/add-question'>
+        <Link className='item' to='/add'>
           Add question
         </Link>
         <div className='right menu'>

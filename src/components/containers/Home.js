@@ -8,6 +8,16 @@ import QuestionDone from './Question_done'
 
 class Home extends Component {
 
+  state = {
+    showContainer: 'unanswered'
+  }
+
+  handleClick = (status) => {
+    this.setState({
+      showContainer: status
+    })
+  }
+
   render() {
     if(!this.props.status) {
       return (
@@ -25,67 +35,48 @@ class Home extends Component {
     let answeredQs = _.keys(users[user].answers)
     let unansweredQs = _.difference(keysQ, answeredQs)
 
-    let ansQuesData = []
-    let unansQuesData = []
-
-    for (let i = 0; i < questions.length; i++) {
-      for (let j = 0; j < answeredQs.length; j++){
-        if(answeredQs[j] === questions[i].id){
-          ansQuesData.push(questions[i])
-        }
-      }
-    }
-
-    for (let i = 0; i < questions.length; i++) {
-      for (let j = 0; j < unansweredQs.length; j++){
-        if(unansweredQs[j] === questions[i].id){
-          unansQuesData.push(questions[i])
-        }
-      }
-    }
-    // questions.map( m => {
-    //   answeredQs.filter(f => {
-    //     if(f === m.id) {
-    //       console.log(m)
-    //     }
-    //   })
-    // })
-
-  if(!questions.length) {
-    return(
-      <div className="ui container center aligned card-container">
-        <div className="ui active inverted dimmer">
-          <div className="ui text loader">Loading</div>
+    if(!questions.length) {
+      return(
+        <div className="ui container center aligned card-container">
+          <div className="ui active inverted dimmer">
+            <div className="ui text loader">Loading</div>
+          </div>
         </div>
-      </div>
-    )
-  }
+      )
+    }
 
   return(
     <div>
-      <div className="ui container center aligned card-container">
-       <h2>
-          Unanswered questions
-        </h2>
-        <div className="ui cards">
-          {ansQuesData.map(item => (
-             <Question item={item} />
-           ))}
-         </div>
-       </div>
-       <br />
-       <div className="ui container center aligned card-container">
-         <h2>
-           Answered questions
-         </h2>
-         <div className="ui cards">
-            {unansQuesData.map(item => (
-               <QuestionDone item={item} />
-             ))}
-           {/* {answeredQs.map(item => <QuestionDone item={getFilteredData(item)} />)} */}
-         </div>
+      <div className="ui container center aligned button-container">
+        <div className="ui animated button" tabindex="0" onClick={() => this.handleClick("unanswered")}>
+          <div className="visible content">Unanswered Questions</div>
+          <div className="hidden content">
+            <i className="right arrow icon"></i>
+          </div>
+        </div>
+        <div className="ui animated button" tabindex="0" onClick={() => this.handleClick("answered")}>
+          <div className="visible content">Answered Questions</div>
+          <div className="hidden content">
+            <i className="right arrow icon"></i>
+          </div>
+        </div>
       </div>
-  </div>
+        {this.state.showContainer === 'unanswered' ? (
+          <div className="ui container center aligned card-container">
+            <h2>Unanswered questions</h2>
+            <div className="ui cards">
+              {unansweredQs.map(idNum => <Question item={_.find(questions, {id: idNum})}/> )}
+            </div>
+          </div>
+        ) :(
+          <div className="ui container center aligned card-container">
+            <h2>Answered questions</h2>
+            <div className="ui cards">
+              {answeredQs.map(idNum => <QuestionDone item={_.find(questions, {id: idNum})}/> )}
+            </div>
+          </div>
+        )}
+    </div>
   )
   }
 }

@@ -28,7 +28,7 @@ class App extends Component {
             <Route path='/' exact component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/leaderboard' component={LeaderBoard} />
-            <Route path='/add-question' component={AddQuestion} />
+            <Route path='/add' component={AddQuestion} />
             <Redirect from='*' to='/' />
           </Switch>
         </BrowserRouter>
