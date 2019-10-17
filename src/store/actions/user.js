@@ -20,10 +20,10 @@ return (dispatch) => {
   }
 }
 
-export const logInUser = userName => {
+export const logInUser = (user) => {
   return {
     type: LOG_IN_USER,
-    userName
+    user
   }
 }
 

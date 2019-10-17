@@ -26,6 +26,8 @@ class Login extends Component {
   }
 
   render () {
+    const { usrNames } = this.props
+
     if(this.props.status) {
       return (
         <div>
@@ -33,6 +35,17 @@ class Login extends Component {
         </div>
       )
     }
+
+
+  if(!usrNames.length) {
+    return(
+      <div className="ui container center aligned card-container">
+        <div className="ui active inverted dimmer">
+          <div className="ui text loader">Loading</div>
+        </div>
+      </div>
+    )
+  }
 
     return (
       <div className="form-container container">
@@ -47,17 +60,17 @@ class Login extends Component {
               <div className="ui stacked segment left aligned">
                 <div className="grouped fields">
                   <label>Select user:</label>
-                    {this.props.usrNames.map(usr =>{
+                    {usrNames.map(usr =>{
                       return (
-                        <div className="field" key={usr}>
+                        <div className="field" key={usr.id}>
                           <div className="ui radio checkbox">
                             <input
                               type="radio"
                               name="loginUser"
-                              value={usr}
+                              value={usr.id}
                               onChange={this.radioChangeHandler}
                             />
-                            <label>{usr}</label>
+                            <label>{usr.name}</label>
                           </div>
                         </div>
                       )

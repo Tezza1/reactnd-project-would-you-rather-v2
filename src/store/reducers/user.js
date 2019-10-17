@@ -11,8 +11,9 @@ const user = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_USERS:
       let userArr = []
-      for (let usr in action.users){
-        userArr.push(usr)
+      let { users } = action
+      for (let usr in users){
+        userArr.push({id: users[usr].id, name: users[usr].name})
       }
       return {
         ...state,
@@ -22,7 +23,7 @@ const user = (state = initialState, action) => {
     case LOG_IN_USER:
       return {
         ...state,
-        loggedInUser: action.userName,
+        loggedInUser: action.user,
         loggedInState: true
       }
     case LOG_OUT_USER:

@@ -47,7 +47,8 @@ class LeaderBoard extends Component {
 
 const mapStatetoProps = state => {
   return {
-    status: state.user.loggedInState
+    status: state.user.loggedInState,
+    users: state.user.users
   }
 }
 
