@@ -26,7 +26,7 @@ class Login extends Component {
   }
 
   render () {
-    const { usrNames } = this.props
+    const { users } = this.props
 
     if(this.props.status) {
       return (
@@ -37,7 +37,7 @@ class Login extends Component {
     }
 
 
-  if(!usrNames.length) {
+  if(!users.length) {
     return(
       <div className="ui container center aligned card-container">
         <div className="ui active inverted dimmer">
@@ -60,21 +60,19 @@ class Login extends Component {
               <div className="ui stacked segment left aligned">
                 <div className="grouped fields">
                   <label>Select user:</label>
-                    {usrNames.map(usr =>{
-                      return (
-                        <div className="field" key={usr.id}>
-                          <div className="ui radio checkbox">
-                            <input
-                              type="radio"
-                              name="loginUser"
-                              value={usr.id}
-                              onChange={this.radioChangeHandler}
-                            />
-                            <label>{usr.name}</label>
-                          </div>
+                    {users.map(usr =>(
+                      <div className="field" key={usr.id}>
+                        <div className="ui radio checkbox">
+                          <input
+                            type="radio"
+                            name="loginUser"
+                            value={usr.id}
+                            onChange={this.radioChangeHandler}
+                          />
+                          <label>{usr.name}</label>
                         </div>
-                      )
-                    })}
+                      </div>
+                    ))}
                 </div>
                 <button
                   className="ui fluid large black button"
@@ -91,8 +89,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-      usrs: state.user.users,
-      usrNames: state.user.userNames,
+      users: state.user.users,
       status: state.user.loggedInState
     }
 };

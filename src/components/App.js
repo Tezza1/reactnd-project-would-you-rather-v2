@@ -37,12 +37,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-
-  }
-}
-
 const mapDispatchToProps = dispatch => {
   return {
     getUsers: () => dispatch(handleGetUsers()),
@@ -50,4 +44,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(null, mapDispatchToProps)(App)

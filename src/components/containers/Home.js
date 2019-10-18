@@ -7,12 +7,9 @@ import Question from './Question'
 import QuestionDone from './Question_done'
 
 class Home extends Component {
+  state = { showContainer: 'unanswered' }
 
-  state = {
-    showContainer: 'unanswered'
-  }
-
-  handleClick = (status) => {
+  handleClick = status => {
     this.setState({
       showContainer: status
     })
@@ -29,10 +26,12 @@ class Home extends Component {
 
     let { users } = this.props
     let { user } = this.props
-    const { questions } = this.props
+    let { questions } = this.props
 
+    questions = _.orderBy(questions, ['timestamp'], ['asc'])
     let keysQ = _.map(questions, 'id')  // keysQ.map(q => q.id)
-    let answeredQs = _.keys(users[user].answers)
+    let userData = _.find(users, {id: user})
+    let answeredQs = _.keys(userData.answers)
     let unansweredQs = _.difference(keysQ, answeredQs)
 
     if(!questions.length) {
@@ -68,7 +67,7 @@ class Home extends Component {
               {unansweredQs.map(idNum => <Question item={_.find(questions, {id: idNum})}/> )}
             </div>
           </div>
-        ) :(
+        ) : (
           <div className="ui container center aligned card-container">
             <h2>Answered questions</h2>
             <div className="ui cards">

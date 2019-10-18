@@ -1,8 +1,8 @@
 import { GET_ALL_USERS, LOG_IN_USER, LOG_OUT_USER } from '../actions/actionTypes'
+import _ from 'lodash'
 
 const initialState = {
-  users: '',
-  userNames: [],
+  users: [],
   loggedInUser: '',
   loggedInState: false
 }
@@ -10,15 +10,11 @@ const initialState = {
 const user = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_USERS:
-      let userArr = []
       let { users } = action
-      for (let usr in users){
-        userArr.push({id: users[usr].id, name: users[usr].name})
-      }
+      let userArr = _.values(users)
       return {
         ...state,
-        users: action.users,
-        userNames: state.userNames.concat(userArr)
+        users: state.users.concat(userArr),
       }
     case LOG_IN_USER:
       return {
