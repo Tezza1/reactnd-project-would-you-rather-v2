@@ -29,11 +29,7 @@ class Login extends Component {
     const { users } = this.props
 
     if(this.props.status) {
-      return (
-        <div>
-          <Redirect to='/' />
-        </div>
-      )
+      return <Redirect to='/' />
     }
 
 

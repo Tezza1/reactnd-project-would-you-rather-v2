@@ -10,7 +10,7 @@ import MainTitle from './pageLayout/MainTitle'
 import Home from './containers/Home'
 import Login from './containers/Login'
 import LeaderBoard from './containers/LeaderBoard'
-import AddQuestion from './containers/AddQuestion'
+import Add from './containers/Add'
 
 class App extends Component {
   componentDidMount() {
@@ -28,7 +28,7 @@ class App extends Component {
             <Route path='/' exact component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/leaderboard' component={LeaderBoard} />
-            <Route path='/add' component={AddQuestion} />
+            <Route path='/add' component={Add} />
             <Redirect from='*' to='/' />
           </Switch>
         </BrowserRouter>

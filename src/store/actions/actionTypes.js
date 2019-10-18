@@ -5,4 +5,4 @@ export const LOG_OUT_USER = 'LOG_OUT_USER'
 
 // questions
 export const GET_QUESTIONS = 'GET_QUESTIONS'
-// export const ADD_QUESTION = 'ADD_QUESTION'
+export const ADD_QUESTION = 'ADD_QUESTION'

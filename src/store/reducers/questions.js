@@ -1,4 +1,4 @@
-import { GET_QUESTIONS } from '../actions/actionTypes'
+import { GET_QUESTIONS, ADD_QUESTION } from '../actions/actionTypes'
 import _ from 'lodash'
 
 const initialState = {
@@ -12,6 +12,11 @@ const questions = (state = initialState, action) => {
       return {
         ...state,
         questions: state.questions.concat(qs)
+      }
+    case ADD_QUESTION:
+      return {
+        ...state,
+        questions: state.questions.concat(action.question)
       }
     default:
       return state

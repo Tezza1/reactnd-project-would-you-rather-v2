@@ -17,11 +17,7 @@ class Home extends Component {
 
   render() {
     if(!this.props.status) {
-      return (
-        <div>
-          <Redirect to='/login' />
-        </div>
-      )
+      return <Redirect to='/login' />
     }
 
     let { users } = this.props
@@ -47,13 +43,13 @@ class Home extends Component {
   return(
     <div>
       <div className="ui container center aligned button-container">
-        <div className="ui animated button" tabindex="0" onClick={() => this.handleClick("unanswered")}>
+        <div className="ui animated button" tabIndex="0" onClick={() => this.handleClick("unanswered")}>
           <div className="visible content">Unanswered Questions</div>
           <div className="hidden content">
             <i className="right arrow icon"></i>
           </div>
         </div>
-        <div className="ui animated button" tabindex="0" onClick={() => this.handleClick("answered")}>
+        <div className="ui animated button" tabIndex="0" onClick={() => this.handleClick("answered")}>
           <div className="visible content">Answered Questions</div>
           <div className="hidden content">
             <i className="right arrow icon"></i>

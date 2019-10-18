@@ -8,11 +8,7 @@ class LeaderBoard extends Component {
 
   render() {
     if(!this.props.status) {
-      return (
-        <div>
-          <Redirect to='/login' />
-        </div>
-      )
+      return <Redirect to='/login' />
     }
 
     const { users } = this.props
