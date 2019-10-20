@@ -7,6 +7,7 @@ import './Menu.css'
 class Menu extends Component {
   render() {
     return(
+    <div className="ui container center aligned button-container">
       <div className='ui secondary pointing menu'>
         <Link className='item' to='/'>
           Home
@@ -25,6 +26,7 @@ class Menu extends Component {
           </button>
         </div>
       </div>
+    </div>
     )
   }
 }

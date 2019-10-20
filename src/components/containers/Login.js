@@ -7,6 +7,7 @@ import './Login.css'
 class Login extends Component {
   state={
     checkedUser: '',
+    errors: ''
   }
 
   radioChangeHandler = e => {
@@ -18,8 +19,19 @@ class Login extends Component {
   buttonClickHandler = e => {
     e.preventDefault()
     let usr = this.state.checkedUser
+    const alert = (
+      <div className="ui warning message">
+        <div className="header">
+          Select a user
+          <i className="exclamation icon"></i>
+        </div>
+      </div>
+    )
+
     if (usr === ''){
-      alert('Select a user')
+      this.setState({
+        errors: alert
+      })
     } else {
       this.props.login(usr)
     }
@@ -33,15 +45,15 @@ class Login extends Component {
     }
 
 
-  if(!users.length) {
-    return(
-      <div className="ui container center aligned card-container">
-        <div className="ui active inverted dimmer">
-          <div className="ui text loader">Loading</div>
+    if(!users.length) {
+      return(
+        <div className="ui container center aligned card-container">
+          <div className="ui active inverted dimmer">
+            <div className="ui text loader">Loading</div>
+          </div>
         </div>
-      </div>
-    )
-  }
+      )
+    }
 
     return (
       <div className="form-container container">
@@ -76,6 +88,7 @@ class Login extends Component {
                 >Login</button>
               </div>
             </form>
+            {this.state.errors}
           </div>
         </div>
       </div>

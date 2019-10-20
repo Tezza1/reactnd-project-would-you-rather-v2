@@ -8,7 +8,8 @@ class Add extends Component {
   state = {
     option1: '',
     option2: '',
-    redirect: false
+    redirect: false,
+    errors: ''
   }
 
   handleChange = e => {
@@ -19,8 +20,19 @@ class Add extends Component {
 
   buttonClickHandler = e => {
     e.preventDefault()
+    const alert = (
+      <div className="ui warning message">
+        <div className="header">
+          Fill in both options
+          <i className="exclamation icon"></i>
+        </div>
+      </div>
+    )
+
     if (this.state.option1 === '' || this.state.option2 === ''){
-      alert('Fill in 2 options')
+      this.setState({
+        errors: alert
+      })
     } else {
       this.props.saveQ({
         author: this.props.user,
@@ -81,6 +93,7 @@ class Add extends Component {
                 <button className="ui fluid large black button" onClick={e => this.buttonClickHandler(e)}>Submit</button>
               </div>
             </form>
+            {this.state.errors}
           </div>
         </div>
       </div>
