@@ -1,22 +1,20 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 
 const Question = (props) =>{
   const { item } = props
   return (
-    <div className="card" key={item.id}>
+    <Link className="card" key={item.id} to={`/question/${item.id}`}>
       <div className="content">
-        {/* <img className="right floated mini ui image" src={item.avatarURL}  alt="Avatar"/> */}
-        <div className="header">
-          {item.author}
-        </div>
         <div className="meta">
           <Moment format="DD MMMM YYYY">
             {item.timestamp}
           </Moment>
         </div>
         <div className="description">
-          Choose one of the following options
+          <i className="info circle icon"></i>
+          <em>Click for more info.</em>
         </div>
       </div>
       <div className="extra content">
@@ -25,7 +23,7 @@ const Question = (props) =>{
           <div className="ui basic black button">{item.optionTwo.text}</div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

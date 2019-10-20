@@ -1,5 +1,5 @@
 import * as API from '../../utils/_DATA.js'
-import { GET_QUESTIONS, ADD_QUESTION } from './actionTypes'
+import { GET_QUESTIONS, GET_QUESTION, ADD_QUESTION, SAVE_ANSWER } from './actionTypes'
 
 export const getQuestions = questions => {
   return {
@@ -20,6 +20,13 @@ export const handleGetQuestions = () => {
   }
 }
 
+export const getQuestion = id => {
+  return {
+    type: GET_QUESTION,
+    id
+  }
+}
+
 export const addQuestion = question => {
   return {
     type: ADD_QUESTION,
@@ -27,7 +34,7 @@ export const addQuestion = question => {
   }
 }
 
-export const handleAddQuestion = (question) => {
+export const handleAddQuestion = question => {
   return dispatch => {
     return API._saveQuestion(question)
       .then(question => {
@@ -35,6 +42,25 @@ export const handleAddQuestion = (question) => {
       })
       .catch(() => {
         console.log("There was an error. Try again")
+      })
+  }
+}
+
+export const saveAnswer = answer => {
+  return {
+    type: SAVE_ANSWER,
+    answer
+  }
+}
+
+export const handleSaveAnswer = answer => {
+  return dispatch => {
+    return API._saveQuestionAnswer(answer)
+      .then(() => {
+        dispatch(saveAnswer(answer))
+      })
+      .catch(() => {
+        console.log("There was an error")
       })
   }
 }

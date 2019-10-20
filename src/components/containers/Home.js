@@ -4,15 +4,12 @@ import { Redirect } from 'react-router-dom';
 import _ from 'lodash'
 import './Home.css'
 import Question from './Question'
-import QuestionDone from './Question_done'
 
 class Home extends Component {
   state = { showContainer: 'unanswered' }
 
   handleClick = status => {
-    this.setState({
-      showContainer: status
-    })
+    this.setState({ showContainer: status })
   }
 
   render() {
@@ -24,7 +21,7 @@ class Home extends Component {
     let { user } = this.props
     let { questions } = this.props
 
-    questions = _.orderBy(questions, ['timestamp'], ['asc'])
+    questions = _.orderBy(questions, ['timestamp'], ['desc'])
     let keysQ = _.map(questions, 'id')  // keysQ.map(q => q.id)
     let userData = _.find(users, {id: user})
     let answeredQs = _.keys(userData.answers)
@@ -67,7 +64,7 @@ class Home extends Component {
           <div className="ui container center aligned card-container">
             <h2>Answered questions</h2>
             <div className="ui cards">
-              {answeredQs.map(idNum => <QuestionDone item={_.find(questions, {id: idNum})}/> )}
+              {answeredQs.map(idNum => <Question item={_.find(questions, {id: idNum})}/> )}
             </div>
           </div>
         )}
