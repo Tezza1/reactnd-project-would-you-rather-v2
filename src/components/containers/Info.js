@@ -16,16 +16,14 @@ class Info extends Component {
       return <Redirect to='/login' />
     }
 
-    const { usr } = this.props
     const { users } = this.props
     const { question } = this.props
     let quesAuthor = {}
     let status = true
 
     if(!(_.isEmpty(question))){
-      quesAuthor= _.find(users, { 'id': question.author });
+      quesAuthor= _.find(users, { 'id': question.author })
     }
-
 
     if(_.isEmpty(question) || _.isEmpty(quesAuthor)) {
       return(

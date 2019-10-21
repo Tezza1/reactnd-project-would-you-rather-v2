@@ -26,10 +26,20 @@ const questions = (state = initialState, action) => {
         questions: state.questions.concat(action.question)
       }
     case SAVE_ANSWER:
-      console.log('data from saved answer')
-      console.log(action.answer)
+      const { answer } = action
+      let { question } = state
+      let { questions } = state
+      const choice = answer.answer
+
+      let voteArr = question[choice].votes.concat(answer.authedUser)
+      question[choice]['votes'] = voteArr
+
+      let questionsArr = questions.filter(q => q.id !== question.id )
+
       return {
-        ...state
+        ...state,
+        question: question,
+        questions: questionsArr.concat(question)
       }
     default:
       return state
