@@ -3,7 +3,8 @@ import _ from 'lodash'
 
 const initialState = {
   questions: [],
-  question: {}
+  question: {},
+  newQs: []
 }
 
 const questions = (state = initialState, action) => {
@@ -23,23 +24,20 @@ const questions = (state = initialState, action) => {
     case ADD_QUESTION:
       return {
         ...state,
-        questions: state.questions.concat(action.question)
+        questions: state.questions.concat(action.question),
+        newQs: _.concat(state.newQs, action.question.id)
       }
     case SAVE_ANSWER:
       const { answer } = action
       let { question } = state
-      let { questions } = state
       const choice = answer.answer
 
       let voteArr = question[choice].votes.concat(answer.authedUser)
       question[choice]['votes'] = voteArr
 
-      let questionsArr = questions.filter(q => q.id !== question.id )
-
       return {
         ...state,
-        question: question,
-        questions: questionsArr.concat(question)
+        questions: state.questions.filter(q => q.id !== question.id).concat(question)
       }
     default:
       return state

@@ -1,21 +1,26 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logOutUser } from '../../store/actions/user'
 import './Menu.css'
 
 class Menu extends Component {
   render() {
+
+    if(!this.props.status) {
+      return <Redirect to='/login' />
+    }
+
     return(
     <div className="ui container center aligned button-container">
       <div className='ui secondary pointing menu'>
-        <Link className='item' to='/'>
+        <Link className={this.props.page === 'home' ? 'active item' : 'item'} to='/'>
           Home
         </Link>
-        <Link className='item' to='/leaderboard'>
+        <Link className={this.props.page === 'leader' ? 'active item' : 'item'} to='/leaderboard'>
           Leader Board
         </Link>
-        <Link className='item' to='/add'>
+        <Link className={this.props.page === 'add' ? 'active item' : 'item'} to='/add'>
           Add question
         </Link>
         <div className='right menu'>
@@ -33,7 +38,9 @@ class Menu extends Component {
 
 const mapStateToProps = state => {
   return {
-    usr: state.user.loggedInUser
+    status: state.user.loggedInState,
+    usr: state.user.loggedInUser,
+    page: state.navigation.page
   }
 }
 

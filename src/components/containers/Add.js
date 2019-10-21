@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
-import { handleAddQuestion } from '../../store/actions/questions'
+import { handleAddQuestion  } from '../../store/actions/questions'
+import { setPage } from '../../store/actions/navigation'
 import './Add.css'
 
 class Add extends Component {
@@ -10,6 +11,10 @@ class Add extends Component {
     option2: '',
     redirect: false,
     errors: ''
+  }
+
+  componentDidMount(){
+    this.props.setPage('add')
   }
 
   handleChange = e => {
@@ -46,11 +51,6 @@ class Add extends Component {
   }
 
   render() {
-
-    if(!this.props.status) {
-      return <Redirect to='/login' />
-    }
-
     if(this.state.redirect){
       return <Redirect to="/" />
     }
@@ -104,12 +104,12 @@ class Add extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user.loggedInUser,
-    status: state.user.loggedInState
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
+    setPage: (page) => dispatch(setPage(page)),
     saveQ: (ques) => dispatch(handleAddQuestion(ques))
   }
 }

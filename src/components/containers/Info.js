@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom';
 import _ from 'lodash'
 import { getQuestion } from '../../store/actions/questions'
 import Question from './Question_poll.js'
+import './Info.css'
 
 class Info extends Component {
   componentDidMount() {
@@ -12,10 +12,6 @@ class Info extends Component {
   }
 
   render() {
-    if(!this.props.status) {
-      return <Redirect to='/login' />
-    }
-
     const { users } = this.props
     const { question } = this.props
     let quesAuthor = {}
@@ -48,7 +44,6 @@ class Info extends Component {
 
 const mapStateToProps = state => {
   return {
-    status: state.user.loggedInState,
     usr: state.user.loggedInUser,
     users: state.user.users,
     question: state.questions.question

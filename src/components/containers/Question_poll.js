@@ -54,14 +54,27 @@ class Question extends Component {
          <div className="extra content">
           <div className="ui two buttons middle aligned">
             <div className="ui basic green button no-button">
-              {item.optionOne.text}
+              <i className="check icon"></i>
               <br />
-              <i className="check icon"></i> {item.optionOne.votes.length}
+              <strong>Option 1</strong><br />
+              {item.optionOne.text}
             </div>
             <div className="ui basic red button no-button">
-              {item.optionTwo.text}
+              <i className="close icon"></i>
               <br />
-              <i className="close icon"></i> {item.optionOne.votes.length}
+              <strong>Option 2</strong><br />
+              {item.optionTwo.text}
+            </div>
+          </div>
+          <div className="ui floating icon message">
+            <i className="chart line icon"></i>
+            <div className="content">
+              <div className="header">Poll data</div>
+              <ul className="left aligned">
+                <li><strong>Your vote:</strong> "jdfhdjkshf"</li>
+                <li><strong>Option 1:</strong> "jdfhdjkshf"</li>
+                <li><strong>Option 2:</strong> "jdfhdjkshf"</li>
+              </ul>
             </div>
           </div>
         </div>

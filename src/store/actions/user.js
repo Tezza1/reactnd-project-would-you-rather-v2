@@ -1,5 +1,5 @@
 import * as API from '../../utils/_DATA.js'
-import { GET_ALL_USERS, LOG_IN_USER, LOG_OUT_USER } from './actionTypes'
+import { GET_ALL_USERS, LOG_IN_USER, LOG_OUT_USER, UPDATE_USER_ANSWER, UPDATE_USER_QUESTION } from './actionTypes'
 
 export const getUsers = users => {
   return {
@@ -30,5 +30,21 @@ export const logInUser = (user) => {
 export const logOutUser = () => {
   return {
     type: LOG_OUT_USER
+  }
+}
+
+export const upDateUserAnswer = (uid, qid) => {
+  return {
+    type: UPDATE_USER_ANSWER,
+    uid,
+    qid
+  }
+}
+
+export const upDateUserQuestion = (uid, qs) => {
+  return {
+    type: UPDATE_USER_QUESTION,
+    uid,
+    qs
   }
 }

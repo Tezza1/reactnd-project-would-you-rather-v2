@@ -1,31 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { setPage } from '../../store/actions/navigation'
 import _ from 'lodash'
+import uuid from "uuid"
 import './Home.css'
 import Question from './Question'
 
 class Home extends Component {
   state = { showContainer: 'unanswered' }
 
+  componentDidMount(){
+    this.props.setPage('home')
+  }
+
   handleClick = status => {
     this.setState({ showContainer: status })
   }
 
   render() {
-    if(!this.props.status) {
-      return <Redirect to='/login' />
-    }
 
     let { users } = this.props
     let { user } = this.props
     let { questions } = this.props
-
-    questions = _.orderBy(questions, ['timestamp'], ['desc'])
-    let keysQ = _.map(questions, 'id')  // keysQ.map(q => q.id)
-    let userData = _.find(users, {id: user})
-    let answeredQs = _.keys(userData.answers)
-    let unansweredQs = _.difference(keysQ, answeredQs)
 
     if(!questions.length) {
       return(
@@ -36,6 +32,12 @@ class Home extends Component {
         </div>
       )
     }
+
+    questions = _.orderBy(questions, ['timestamp'], ['desc'])
+    let keysQ = _.map(questions, 'id')  // keysQ.map(q => q.id)
+    let userData = _.find(users, {id: user})
+    let answeredQs = _.keys(userData.answers)
+    let unansweredQs = _.difference(keysQ, answeredQs)
 
   return(
     <div>
@@ -57,14 +59,14 @@ class Home extends Component {
           <div className="ui container center aligned card-container">
             <h2>Unanswered questions</h2>
             <div className="ui cards">
-              {unansweredQs.map(idNum => <Question item={_.find(questions, {id: idNum})}/> )}
+              {unansweredQs.map(idNum => <Question item={_.find(questions, {id: idNum})} key={uuid.v4()}/> )}
             </div>
           </div>
         ) : (
           <div className="ui container center aligned card-container">
             <h2>Answered questions</h2>
             <div className="ui cards">
-              {answeredQs.map(idNum => <Question item={_.find(questions, {id: idNum})}/> )}
+              {answeredQs.map(idNum => <Question item={_.find(questions, {id: idNum})} key={uuid.v4()}/> )}
             </div>
           </div>
         )}
@@ -75,11 +77,16 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    status: state.user.loggedInState,
     user: state.user.loggedInUser,
     users: state.user.users,
     questions: state.questions.questions
   }
 }
 
-export default connect(mapStateToProps)(Home)
+const mapDispatchToProps = dispatch => {
+  return {
+    setPage: (page) => dispatch(setPage(page)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
