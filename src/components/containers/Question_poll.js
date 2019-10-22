@@ -1,33 +1,39 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import { handleSaveAnswer } from '../../store/actions/questions'
 import { upDateUserAnswer } from '../../store/actions/user'
 import Moment from 'react-moment'
 
 class Question extends Component {
-  state = { answer: true}
-
-  componentDidMount() {
-  }
+  state = { answer: true }
 
   changeStatus = () => this.setState({ answer: false})
 
   render () {
     const { item } = this.props
     const { author } = this.props
+    const { user } = this.props
 
     if(!this.props.status) {
       this.setState({ answer: false })
     }
 
-    const saveQ = (answer) => {
+    const saveQ = (answer, text) => {
       this.props.saveAnswer({
-        authedUser: this.props.user,
+        authedUser: user,
         qid: item.id,
         answer: answer
       })
-      this.props.upDateUsrAns(this.props.user, {[item.id]: answer})
+      this.props.upDateUsrAns(user, {[item.id]: answer})
+      this.setState({user_answer: text})
     }
+
+    // get poll data
+    const { questions } = this.props
+    const theQuestion = _.find(questions, {id: item.id})
+    let data_1 = theQuestion.optionOne.votes.length
+    let data_2 = theQuestion.optionTwo.votes.length
 
     return (
       <div className="card" key={item.id}>
@@ -48,24 +54,32 @@ class Question extends Component {
       {this.state.answer ? (
         <div className="extra content">
           <div className="ui two buttons middle aligned" onClick={this.changeStatus}>
-            <div className="ui secondary button" onClick={() => saveQ('optionOne')}>{item.optionOne.text}</div>
-            <div className="ui basic black button" onClick={() => saveQ('optionTwo')}>{item.optionTwo.text}</div>
+            <div
+              className="ui secondary button"
+              onClick={() => saveQ('optionOne', item.optionOne.text)}>
+              {item.optionOne.text}
+            </div>
+            <div
+              className="ui basic black button"
+              onClick={() => saveQ('optionTwo', item.optionTwo.text)}>
+              {item.optionTwo.text}
+            </div>
           </div>
         </div>
        ):(
          <div className="extra content">
           <div className="ui two buttons middle aligned">
             <div className="ui basic green button no-button">
-              <i className="check icon"></i>
-              <br />
-              <strong>Option 1</strong><br />
-              {item.optionOne.text}
+              <i className="check icon"></i><br />
+              {item.optionOne.text}<br />
+              <strong>Votes: {data_1}</strong><br />
+              <em>({data_1 / (data_1 + data_2)  * 100}%)</em>
             </div>
             <div className="ui basic red button no-button">
-              <i className="close icon"></i>
-              <br />
-              <strong>Option 2</strong><br />
-              {item.optionTwo.text}
+              <i className="close icon"></i><br />
+              {item.optionTwo.text}<br />
+              <strong>Votes: {data_2}</strong><br />
+              <em>({data_2 / (data_1 + data_2)  * 100}%)</em>
             </div>
           </div>
           <div className="ui floating icon message">
@@ -73,9 +87,7 @@ class Question extends Component {
             <div className="content">
               <div className="header">Poll data</div>
               <ul className="left aligned">
-                <li><strong>Your vote:</strong> "jdfhdjkshf"</li>
-                <li><strong>Option 1:</strong> "jdfhdjkshf"</li>
-                <li><strong>Option 2:</strong> "jdfhdjkshf"</li>
+                <li><strong>Your vote:</strong><br /> {this.state.user_answer}</li>
               </ul>
             </div>
           </div>
@@ -88,7 +100,8 @@ class Question extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.loggedInUser
+    user: state.user.loggedInUser,
+    questions: state.questions.questions
   }
 }
 
