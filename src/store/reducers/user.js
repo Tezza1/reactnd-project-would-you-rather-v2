@@ -29,8 +29,14 @@ const user = (state = initialState, action) => {
         loggedInState: false
       }
     case UPDATE_USER_ANSWER:
+      console.log(action.uid)
+      console.log(action.ans)
+      let allUserAns = state.users
+      let theUserAns = _.find(allUserAns, {id: action.uid})
+      theUserAns.answers = _.merge({}, theUserAns.answers, action.ans)  // could also use _.assign
       return {
-        ...state
+        ...state,
+        users: state.users.filter(usr => usr.id !== action.uid).concat(theUserAns)
       }
     case UPDATE_USER_QUESTION:
       let allUser = state.users

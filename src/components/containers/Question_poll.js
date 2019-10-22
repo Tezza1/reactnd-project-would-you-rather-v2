@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleSaveAnswer } from '../../store/actions/questions'
+import { upDateUserAnswer } from '../../store/actions/user'
 import Moment from 'react-moment'
 
 class Question extends Component {
@@ -25,6 +26,7 @@ class Question extends Component {
         qid: item.id,
         answer: answer
       })
+      this.props.upDateUsrAns(this.props.user, {[item.id]: answer})
     }
 
     return (
@@ -92,7 +94,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveAnswer: (answer) => dispatch(handleSaveAnswer(answer))
+    saveAnswer: (answer) => dispatch(handleSaveAnswer(answer)),
+    upDateUsrAns: (uid, ans) => dispatch(upDateUserAnswer(uid, ans))
   }
 }
 

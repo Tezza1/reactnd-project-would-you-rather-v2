@@ -33,11 +33,11 @@ export const logOutUser = () => {
   }
 }
 
-export const upDateUserAnswer = (uid, qid) => {
+export const upDateUserAnswer = (uid, ans) => {
   return {
     type: UPDATE_USER_ANSWER,
     uid,
-    qid
+    ans
   }
 }
 
