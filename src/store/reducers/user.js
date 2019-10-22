@@ -38,7 +38,7 @@ const user = (state = initialState, action) => {
       theUser.questions = _.concat(theUser.questions, action.qs)
       return {
         ...state,
-        users: state.users.filter(usr => usr.id !== action.uid)
+        users: state.users.filter(usr => usr.id !== action.uid).concat(theUser)
       }
     default:
       return state

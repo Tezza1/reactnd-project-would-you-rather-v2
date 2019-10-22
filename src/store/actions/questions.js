@@ -1,5 +1,5 @@
 import * as API from '../../utils/_DATA.js'
-import { GET_QUESTIONS, GET_QUESTION, ADD_QUESTION, SAVE_ANSWER } from './actionTypes'
+import { GET_QUESTIONS, GET_QUESTION, ADD_QUESTION, CLEAR_NEWQ, SAVE_ANSWER } from './actionTypes'
 
 export const getQuestions = questions => {
   return {
@@ -43,6 +43,12 @@ export const handleAddQuestion = question => {
       .catch(() => {
         console.log("There was an error. Try again")
       })
+  }
+}
+
+export const clearNewQ = () => {
+  return {
+    type: CLEAR_NEWQ
   }
 }
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setPage } from '../../store/actions/navigation'
+import { upDateUserQuestion  } from '../../store/actions/user'
+import { clearNewQ } from '../../store/actions/questions.js'
 import _ from 'lodash'
 import uuid from "uuid"
 import './Home.css'
@@ -23,7 +25,7 @@ class Home extends Component {
     let { user } = this.props
     let { questions } = this.props
 
-    if(!questions.length) {
+    if(!questions.length || user === '') {
       return(
         <div className="ui container center aligned card-container">
           <div className="ui active inverted dimmer">
@@ -38,6 +40,12 @@ class Home extends Component {
     let userData = _.find(users, {id: user})
     let answeredQs = _.keys(userData.answers)
     let unansweredQs = _.difference(keysQ, answeredQs)
+
+    const { newQ } = this.props
+    if(newQ !== ''){
+      this.props.updateU(this.props.user, newQ)
+      this.props.clearNew()
+    }
 
   return(
     <div>
@@ -79,13 +87,16 @@ const mapStateToProps = state => {
   return {
     user: state.user.loggedInUser,
     users: state.user.users,
-    questions: state.questions.questions
+    questions: state.questions.questions,
+    newQ: state.questions.newQ
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     setPage: (page) => dispatch(setPage(page)),
+    updateU: (uid, qs) => dispatch(upDateUserQuestion(uid, qs)),
+    clearNew: () => dispatch(clearNewQ())
   }
 }
 

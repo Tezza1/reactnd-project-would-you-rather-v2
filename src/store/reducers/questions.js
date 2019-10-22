@@ -1,10 +1,10 @@
-import { GET_QUESTIONS, GET_QUESTION, ADD_QUESTION, SAVE_ANSWER } from '../actions/actionTypes'
+import { GET_QUESTIONS, GET_QUESTION, ADD_QUESTION, CLEAR_NEWQ, SAVE_ANSWER } from '../actions/actionTypes'
 import _ from 'lodash'
 
 const initialState = {
   questions: [],
   question: {},
-  newQs: []
+  newQ: ''
 }
 
 const questions = (state = initialState, action) => {
@@ -25,7 +25,12 @@ const questions = (state = initialState, action) => {
       return {
         ...state,
         questions: state.questions.concat(action.question),
-        newQs: _.concat(state.newQs, action.question.id)
+        newQ: action.question.id
+      }
+    case CLEAR_NEWQ:
+      return {
+        ...state,
+        newQ: ''
       }
     case SAVE_ANSWER:
       const { answer } = action

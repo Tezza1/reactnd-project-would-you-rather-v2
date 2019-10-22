@@ -9,6 +9,7 @@ export const UPDATE_USER_QUESTION = 'UPDATE_USER_QUESTION'
 export const GET_QUESTIONS = 'GET_QUESTIONS'
 export const GET_QUESTION = 'GET_QUESTION'
 export const ADD_QUESTION = 'ADD_QUESTION'
+export const CLEAR_NEWQ = 'CLEAR_NEWQ'
 export const SAVE_ANSWER = 'SAVE_ANSWER'
 
 // navigation

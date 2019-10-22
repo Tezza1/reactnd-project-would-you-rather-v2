@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { getQuestion } from '../../store/actions/questions'
+import { setPage } from '../../store/actions/navigation'
 import Question from './Question_poll.js'
 import './Info.css'
 
 class Info extends Component {
   componentDidMount() {
+    this.props.setPage('')
     const { question_id } = this.props.match.params
     this.props.getQuestion(question_id)
   }
@@ -52,6 +54,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setPage: (page) => dispatch(setPage(page)),
     getQuestion: (id) => dispatch(getQuestion(id))
   }
 }
