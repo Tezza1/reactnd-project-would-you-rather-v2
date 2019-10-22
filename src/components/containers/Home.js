@@ -35,11 +35,19 @@ class Home extends Component {
       )
     }
 
-    questions = _.orderBy(questions, ['timestamp'], ['desc'])
-    let keysQ = _.map(questions, 'id')  // keysQ.map(q => q.id)
     let userData = _.find(users, {id: user})
     let answeredQs = _.keys(userData.answers)
-    let unansweredQs = _.difference(keysQ, answeredQs)
+    let answeredQsData = []
+    _.forEach(answeredQs, (uid) => {
+      _.forEach(questions, (qs) => {
+        if(uid === qs.id){
+          answeredQsData.push(qs)
+        }
+      })
+    })
+    let unAnsweredQsData = _.difference(questions, answeredQsData)
+    answeredQsData = _.orderBy(answeredQsData, ['timestamp'], ['desc'])
+    unAnsweredQsData = _.orderBy(unAnsweredQsData, ['timestamp'], ['desc'])
 
     const { newQ } = this.props
     if(newQ !== ''){
@@ -67,14 +75,14 @@ class Home extends Component {
           <div className="ui container center aligned card-container">
             <h2>Unanswered questions</h2>
             <div className="ui cards">
-              {unansweredQs.map(idNum => <Question item={_.find(questions, {id: idNum})} key={uuid.v4()} answer={true} /> )}
+              {unAnsweredQsData.map(qs => <Question item={qs} key={uuid.v4()} answer={true} /> )}
             </div>
           </div>
         ) : (
           <div className="ui container center aligned card-container">
             <h2>Answered questions</h2>
             <div className="ui cards">
-              {answeredQs.map(idNum => <Question item={_.find(questions, {id: idNum})} key={uuid.v4()} answer={false} /> )}
+              {answeredQsData.map(qs => <Question item={qs} key={uuid.v4()} answer={false} /> )}
             </div>
           </div>
         )}
