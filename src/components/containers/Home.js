@@ -67,14 +67,14 @@ class Home extends Component {
           <div className="ui container center aligned card-container">
             <h2>Unanswered questions</h2>
             <div className="ui cards">
-              {unansweredQs.map(idNum => <Question item={_.find(questions, {id: idNum})} key={uuid.v4()}/> )}
+              {unansweredQs.map(idNum => <Question item={_.find(questions, {id: idNum})} key={uuid.v4()} answer={true} /> )}
             </div>
           </div>
         ) : (
           <div className="ui container center aligned card-container">
             <h2>Answered questions</h2>
             <div className="ui cards">
-              {answeredQs.map(idNum => <Question item={_.find(questions, {id: idNum})} key={uuid.v4()}/> )}
+              {answeredQs.map(idNum => <Question item={_.find(questions, {id: idNum})} key={uuid.v4()} answer={false} /> )}
             </div>
           </div>
         )}

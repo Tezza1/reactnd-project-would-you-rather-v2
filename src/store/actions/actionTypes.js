@@ -11,6 +11,7 @@ export const GET_QUESTION = 'GET_QUESTION'
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const CLEAR_NEWQ = 'CLEAR_NEWQ'
 export const SAVE_ANSWER = 'SAVE_ANSWER'
+export const QUESTION_STATUS = 'QUESTION_STATUS'
 
 // navigation
 export const SET_PAGE = 'SET_PAGE'

@@ -1,5 +1,5 @@
 import * as API from '../../utils/_DATA.js'
-import { GET_QUESTIONS, GET_QUESTION, ADD_QUESTION, CLEAR_NEWQ, SAVE_ANSWER } from './actionTypes'
+import { GET_QUESTIONS, GET_QUESTION, ADD_QUESTION, CLEAR_NEWQ, SAVE_ANSWER, QUESTION_STATUS } from './actionTypes'
 
 export const getQuestions = questions => {
   return {
@@ -49,6 +49,13 @@ export const handleAddQuestion = question => {
 export const clearNewQ = () => {
   return {
     type: CLEAR_NEWQ
+  }
+}
+
+export const setQuestionStatus = status => {
+  return {
+    type: QUESTION_STATUS,
+    status
   }
 }
 

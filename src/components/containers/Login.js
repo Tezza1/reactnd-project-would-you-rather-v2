@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import _ from 'lodash'
 import { logInUser } from '../../store/actions/user'
 import './Login.css'
 
@@ -39,6 +40,7 @@ class Login extends Component {
 
   render () {
     const { users } = this.props
+    let ordered_users = _.orderBy(users, ['name'], ['asc'])
 
     if(this.props.status) {
       return <Redirect to='/' />
@@ -68,7 +70,7 @@ class Login extends Component {
               <div className="ui stacked segment left aligned">
                 <div className="grouped fields">
                   <label>Select user:</label>
-                    {users.map(usr =>(
+                    {ordered_users.map(usr =>(
                       <div className="field" key={usr.id}>
                         <div className="ui radio checkbox">
                           <input

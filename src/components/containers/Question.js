@@ -1,11 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { setQuestionStatus } from '../../store/actions/questions'
 import Moment from 'react-moment'
 
 const Question = (props) =>{
   const { item } = props
   return (
-    <Link className="card" key={item.id} to={`/question/${item.id}`}>
+    <Link className="card" key={item.id} onClick={() => props.setQuestionStatus(props.answer)} to={`/question/${item.id}`}  >
       <div className="content">
         <div className="meta">
           <Moment format="DD MMMM YYYY">
@@ -27,4 +29,10 @@ const Question = (props) =>{
   )
 }
 
-export default Question;
+const mapDispatchToProps = dispatch => {
+  return {
+    setQuestionStatus: (status) => dispatch(setQuestionStatus(status))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Question);

@@ -34,7 +34,6 @@ class Question extends Component {
     const theQuestion = _.find(questions, {id: item.id})
     let data_1 = theQuestion.optionOne.votes.length
     let data_2 = theQuestion.optionTwo.votes.length
-
     return (
       <div className="card" key={item.id}>
         <div className="content">
@@ -51,7 +50,7 @@ class Question extends Component {
             Choose one of the following options
           </div>
         </div>
-      {this.state.answer ? (
+      {this.state.answer && this.props.qstatus ? (
         <div className="extra content">
           <div className="ui two buttons middle aligned" onClick={this.changeStatus}>
             <div
@@ -73,22 +72,22 @@ class Question extends Component {
               <i className="check icon"></i><br />
               {item.optionOne.text}<br />
               <strong>Votes: {data_1}</strong><br />
-              <em>({data_1 / (data_1 + data_2)  * 100}%)</em>
+              <em>({Math.round(data_1 / (data_1 + data_2)  * 100)*100/100}%)</em>
             </div>
             <div className="ui basic red button no-button">
               <i className="close icon"></i><br />
               {item.optionTwo.text}<br />
               <strong>Votes: {data_2}</strong><br />
-              <em>({data_2 / (data_1 + data_2)  * 100}%)</em>
+              <em>({Math.round(data_2 / (data_1 + data_2)  * 100)*100/100}%)</em>
             </div>
           </div>
           <div className="ui floating icon message">
             <i className="chart line icon"></i>
             <div className="content">
-              <div className="header">Poll data</div>
-              <ul className="left aligned">
-                <li><strong>Your vote:</strong><br /> {this.state.user_answer}</li>
-              </ul>
+              <div className="header">
+                Your vote:<br />
+                {this.state.user_answer}
+              </div>
             </div>
           </div>
         </div>
@@ -101,7 +100,8 @@ class Question extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user.loggedInUser,
-    questions: state.questions.questions
+    questions: state.questions.questions,
+    qstatus: state.questions.status
   }
 }
 
