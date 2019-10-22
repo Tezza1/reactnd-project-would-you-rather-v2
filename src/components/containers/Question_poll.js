@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import _ from 'lodash'
 import { handleSaveAnswer } from '../../store/actions/questions'
 import { upDateUserAnswer } from '../../store/actions/user'
@@ -90,6 +91,12 @@ class Question extends Component {
               </div>
             </div>
           </div>
+          <Link className="ui animated button" tabIndex="0" to="/">
+            <div className="visible content">Return to Home</div>
+            <div className="hidden content">
+              <i className="left arrow icon"></i>
+            </div>
+          </Link>
         </div>
       )}
       </div>
