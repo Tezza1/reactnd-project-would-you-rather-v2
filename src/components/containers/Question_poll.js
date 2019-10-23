@@ -20,21 +20,28 @@ class Question extends Component {
       this.setState({ answer: false })
     }
 
-    const saveQ = (answer, text) => {
+    const saveQ = (answer) => {
       this.props.saveAnswer({
         authedUser: user,
         qid: item.id,
         answer: answer
       })
       this.props.upDateUsrAns(user, {[item.id]: answer})
-      this.setState({user_answer: text})
     }
 
     // get poll data
     const { questions } = this.props
     const theQuestion = _.find(questions, {id: item.id})
-    let data_1 = theQuestion.optionOne.votes.length
-    let data_2 = theQuestion.optionTwo.votes.length
+    const data_1 = theQuestion.optionOne.votes.length
+    const data_2 = theQuestion.optionTwo.votes.length
+    let answer = ''
+
+    if (_.some(theQuestion.optionOne.votes, i => i === user)) {
+      answer = theQuestion.optionOne.text
+    } else {
+      answer = theQuestion.optionTwo.text
+    }
+
     return (
       <div className="card" key={item.id}>
         <div className="content">
@@ -56,12 +63,12 @@ class Question extends Component {
           <div className="ui two buttons middle aligned" onClick={this.changeStatus}>
             <div
               className="ui secondary button"
-              onClick={() => saveQ('optionOne', item.optionOne.text)}>
+              onClick={() => saveQ('optionOne')}>
               {item.optionOne.text}
             </div>
             <div
               className="ui basic black button"
-              onClick={() => saveQ('optionTwo', item.optionTwo.text)}>
+              onClick={() => saveQ('optionTwo')}>
               {item.optionTwo.text}
             </div>
           </div>
@@ -87,7 +94,7 @@ class Question extends Component {
             <div className="content">
               <div className="header">
                 Your vote:<br />
-                {this.state.user_answer}
+                {answer}
               </div>
             </div>
           </div>
