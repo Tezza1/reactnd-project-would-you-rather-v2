@@ -1,7 +1,13 @@
- .leader-container {
-  margin-top: 5em;
-}
-
 .column {
   max-width: 550px;
+}
+
+.ui.basic.table {
+  min-width: 80%;
+}
+
+@media only screen and (max-width: 767px){
+  .ui.basic.table {
+    padding: 3rem;
+  }
 }

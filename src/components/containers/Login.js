@@ -58,7 +58,7 @@ class Login extends Component {
     }
 
     return (
-      <div className="form-container container">
+      <div className="ui container center aligned form-container ">
         <div className="ui middle aligned center aligned grid">
           <div className="column">
             <h2 className="ui image header">

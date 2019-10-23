@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logOutUser } from '../../store/actions/user'
-import './Menu.css'
 
 class Menu extends Component {
   render() {
@@ -13,7 +12,7 @@ class Menu extends Component {
 
     return(
     <div className="ui container center aligned button-container">
-      <div className='ui secondary pointing menu'>
+      <div className='ui secondary pointing stackable menu'>
         <Link className={this.props.page === 'home' ? 'active item' : 'item'} to='/'>
           Home
         </Link>
@@ -24,7 +23,7 @@ class Menu extends Component {
           Add question
         </Link>
         <div className='right menu'>
-          <div className='user'>{this.props.usr}</div>
+          <div className='item'>{this.props.usr}</div>
           <button className='ui item button' onClick={this.props.logout}>
             <i className='user circle icon'></i>
             Logout
