@@ -39,10 +39,14 @@ class Login extends Component {
   }
 
   render () {
+    const { fromError } = this.props.location.state
     const { users } = this.props
     let ordered_users = _.orderBy(users, ['name'], ['asc'])
 
     if(this.props.status) {
+      if(fromError){
+        return <Redirect to='/error' />
+      }
       return <Redirect to='/' />
     }
 

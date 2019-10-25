@@ -7,7 +7,7 @@ import Moment from 'react-moment'
 const Question = (props) =>{
   const { item } = props
   return (
-    <Link className="card" key={item.id} onClick={() => props.setQuestionStatus(props.answer)} to={`/question/${item.id}`}  >
+    <Link className="card" key={item.id} onClick={() => props.setQuestionStatus(props.answer)} to={`/questions/${item.id}`}  >
       <div className="content">
         <div className="meta">
           <Moment format="DD MMMM YYYY">
