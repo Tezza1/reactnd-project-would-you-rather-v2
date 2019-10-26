@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { setPage } from '../../store/actions/navigation'
 import { upDateUserQuestion  } from '../../store/actions/user'
 import { clearNewQ } from '../../store/actions/questions.js'
@@ -20,6 +21,16 @@ class Home extends Component {
   }
 
   render() {
+    if(!this.props.status) {
+      return (
+        <Redirect to={{
+          pathname: '/login',
+          state: {
+            fromError: false
+          }
+        }}/>
+      )
+    }
 
     let { users } = this.props
     let { user } = this.props
@@ -93,6 +104,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
+    status: state.user.loggedInState,
     user: state.user.loggedInUser,
     users: state.user.users,
     questions: state.questions.questions,

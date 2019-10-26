@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import './App.css'
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleGetQuestions } from '../store/actions/questions'
 import { handleGetUsers } from '../store/actions/user'
@@ -22,27 +22,28 @@ class App extends Component {
 
   render () {
     return (
-      <Fragment>
-        <BrowserRouter>
-          <Menu />
-          <MainTitle />
-          <Switch>
-            <Route path='/' exact component={Home} />
-            <Route path='/login' component={Login} />
-            <Route path='/error' component={Error} />
-            <Route path='/leaderboard' component={LeaderBoard} />
-            <Route path='/add' component={Add} />
-            <Route path='/questions/:question_id' component={Info} />
-            {/* <Redirect from='*' to='/' /> */}
-            <Redirect from='*' to={{
-              pathname: '/login',
-              state: {
-                fromError: true
-              }
-            }}/>
-          </Switch>
-        </BrowserRouter>
+      <Router>
+        <Fragment>
+          <div className='App'>
+            <Menu />
+            <MainTitle />
+            <Switch>
+              <Route path='/login' component={Login} />
+              <Route path='/' exact component={Home} />
+              <Route path='/error' component={Error} />
+              <Route path='/leaderboard' component={LeaderBoard} />
+              <Route path='/add' component={Add} />
+              <Route path='/questions/:question_id' component={Info} />
+              <Redirect from='*' to={{
+                pathname: '/login',
+                state: {
+                  fromError: true
+                }
+              }}/>
+            </Switch>
+          </div>
       </Fragment>
+      </Router>
     )
   }
 }

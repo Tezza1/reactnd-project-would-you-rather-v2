@@ -10,7 +10,8 @@ class Add extends Component {
     option1: '',
     option2: '',
     redirect: false,
-    errors: ''
+    errors: '',
+    noLogin: false
   }
 
   componentDidMount(){
@@ -25,6 +26,9 @@ class Add extends Component {
 
   buttonClickHandler = e => {
     e.preventDefault()
+    if(!this.props.status) {
+      this.setState({noLogin: true})
+    }
     const alert = (
       <div className="ui warning message">
         <div className="header">
@@ -34,7 +38,7 @@ class Add extends Component {
       </div>
     )
 
-    if (this.state.option1 === '' || this.state.option2 === ''){
+    if (this.state.option1 === '' || this.state.option2 === '' || !this.props.status){
       this.setState({
         errors: alert
       })
@@ -51,6 +55,17 @@ class Add extends Component {
   }
 
   render() {
+    if(this.state.noLogin) {
+      return (
+        <Redirect to={{
+          pathname: '/login',
+          state: {
+            fromError: false
+          }
+        }}/>
+      )
+    }
+
     if(this.state.redirect){
       return <Redirect to="/" />
     }
@@ -103,7 +118,8 @@ class Add extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.loggedInUser,
+    status: state.user.loggedInState,
+    user: state.user.loggedInUser
   }
 }
 

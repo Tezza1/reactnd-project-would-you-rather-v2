@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { setQuestionStatus } from '../../store/actions/questions'
 import Moment from 'react-moment'
 
-const Question = (props) =>{
+const Question = props =>{
   const { item } = props
   return (
     <Link className="card" key={item.id} onClick={() => props.setQuestionStatus(props.answer)} to={`/questions/${item.id}`}  >

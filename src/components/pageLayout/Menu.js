@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logOutUser } from '../../store/actions/user'
 
 class Menu extends Component {
+
+  handleButtonClick = () => {
+    this.props.logout()
+    this.props.history.push({
+      pathname: '/login',
+      state: {fromeError: false}
+    })
+  }
+
   render() {
-
-    if(!this.props.status) {
-      return (
-        <Redirect to={{
-          pathname: '/login',
-          state: {
-            fromError: false
-          }
-        }}/>
-      )
-    }
-
     return(
     <div className="ui container center aligned button-container">
       <div className='ui secondary pointing stackable menu'>
@@ -31,7 +28,7 @@ class Menu extends Component {
         </Link>
         <div className='right menu'>
           <div className='item'>{this.props.usr}</div>
-          <button className='ui item button' onClick={this.props.logout}>
+          <button className='ui item button' onClick={this.handleButtonClick}>
             <i className='user circle icon'></i>
             Logout
           </button>
@@ -52,8 +49,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logOutUser ())
+    logout: () => dispatch(logOutUser())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Menu)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Menu))
